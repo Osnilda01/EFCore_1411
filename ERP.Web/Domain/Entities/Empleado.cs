@@ -11,7 +11,7 @@ public class Empleado
     public int PersonaId { get; set; }
     [Column(TypeName = "decimal(18, 2)")]
     public decimal Sueldo { get; set; }
-
+    public string Area { get; set; } = string.Empty;
     [ForeignKey(nameof(PersonaId))]
     public virtual Persona DatosPersonales { get; set; } = null!;
     public static Empleado Create(
