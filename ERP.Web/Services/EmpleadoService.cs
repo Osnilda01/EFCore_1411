@@ -29,6 +29,7 @@ public class EmpleadoService
                     Id = e.Id,
                     PersonaId = e.PersonaId,
                     Sueldo = e.Sueldo,
+                    Area = e.Area,
                     DatosPersonales = new PersonaDto()
                     {
                         Id = e.DatosPersonales.Id,
