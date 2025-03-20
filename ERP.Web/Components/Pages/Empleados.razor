@@ -4,6 +4,8 @@
 	<div style="text-align:center">
 
 		<h1 class="mt-5">Sistema de gestion de empleados</h1>
+		<img src="Img/iconoempleado.png" height="170px" width="175px"/>
+		
 		<p class="mt-5 fs-4">Aqui puedes agregar, modificar y eliminar cualquier empleado.</p>
 		<span class="btn btn-success p-8 mt-5" @onclick="showitem">Ingresar</span>
 
@@ -19,24 +21,29 @@
 	<h3 class="fs-5 mt-5">Lista de empleados</h3>
 	<div class="card">
 		<div class="card-body">
-			<table class="table">
-				<thead>
+			<table class="table table-hover">
+				<thead class="text-center table-dark">
 					<tr>
 						<th>ID</th>
 						<th>Nombre</th>
 						<th>Sueldo</th>
 						<th>Area de trabajo</th>
+						<th>...</th>
 					</tr>
 				</thead>
-				<tbody>
-					
-						<tr>
-							<th></th>
-							<th></th>
-							<th></th>
-							<th></th>
-						</tr>
-					
+				<tbody class="text-center">
+					<tr>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th></th>
+						<th>
+							<div class="btn-group">
+								<span class="btn btn-primary rounded-3 mx-4">E</span>
+								<span class="btn btn-outline-danger rounded-3">X</span>
+							</div>
+						</th>
+					</tr>
 				</tbody>
 			</table>
 
