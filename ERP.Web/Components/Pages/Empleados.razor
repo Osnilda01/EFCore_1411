@@ -114,7 +114,8 @@
 	}
 
 	public void Showempleadosform()
-	{	
+	{
+		Titulo = "Agregar empleado";
 		ShowEmpleadosForm = !ShowEmpleadosForm;
 		ShowEmpleadosTable = !ShowEmpleadosTable;
 	}
@@ -138,7 +139,6 @@
 	private void Agregar()
 	{
 		Clear();
-		Titulo = "Registrar";
 	}
 	private async Task Add()
 	{
@@ -154,7 +154,7 @@
 	private void Modificar(int Id)
 	{
 		Clear();
-		Titulo = "Modificar";
+		Titulo = "Modificar empleado";
 		Request = ListadoEmpleados
 		.Where(em => em.Id == Id)
 		.FirstOrDefault() ?? new();
