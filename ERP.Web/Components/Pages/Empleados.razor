@@ -4,23 +4,25 @@
 	<div style="text-align:center">
 
 		<h1 class="mt-5">Sistema de gestion de empleados</h1>
-		<img src="Img/iconoempleado.png" height="170px" width="175px"/>
+		<img src="Img/iconoempleado.png" height="170" width="175"/>
 		
 		<p class="mt-5 fs-4">Aqui puedes agregar, modificar y eliminar cualquier empleado.</p>
-		<span class="btn btn-success p-8 mt-5" @onclick="showitem">Ingresar</span>
+		<span class="btn btn-primary p-1 mt-5 fs-5 w-25" @onclick="showitem">Ingresar</span>
 
 	</div>
 }
 
 @if(show == true){
-	<h3 class="text-center">
-		Empleados
-		<br />
-		<span class="btn btn-outline-success m-lg-2 mt-2"><b>+</b></span>
-	</h3>
+	<h3 class="text-center"><b>Empleados</b></h3>
+	<br />
+	<div class="text-center"><img src="Img/lapizeditar2.png" width="50" height="50" /></div>
+	<p class="fs-5">Agregar empleado
+		<span class="btn btn-outline-primary m-lg-2 mt-2"><b>+</b></span>
+	</p>
+	
 	<h3 class="fs-5 mt-5">Lista de empleados</h3>
 	<div class="card">
-		<div class="card-body">
+		
 			<table class="table table-hover">
 				<thead class="text-center table-dark">
 					<tr>
@@ -39,15 +41,47 @@
 						<th></th>
 						<th>
 							<div class="btn-group">
-								<span class="btn btn-primary rounded-3 mx-4">E</span>
-								<span class="btn btn-outline-danger rounded-3">X</span>
+								<span class="btn btn-outline-primary rounded-3 mx-4"><img src="Img/lapizeditar.png" width="20" height="20" /></span>
+							<span class="btn btn-outline-danger rounded-3 p-2" style="width:41px"><b>X</b></span>
 							</div>
 						</th>
 					</tr>
 				</tbody>
 			</table>
+	</div>
 
-		</div>
+
+	<div class="card w-100 ">
+		<div class="card-header bg-dark text-white text-center"><b>Nuevo empleado</b></div>
+			<div class="card-body">
+				<div class="mt-1 form-group">
+				<label class="form-label"><b>Nombre</b></label>
+				<input class="form-control" type="text" />
+				</div>
+				<br>
+				<div class="row">
+					<div class="col">
+						<div class="mt-1 form-group">
+							<label class="form-label"><b>Sueldo</b></label>
+							<input class="form-control" type="number" />
+						</div>
+					</div>
+					<div class="col">
+						<div class="mt-1 form-group">
+							<label class="form-label"><b>Area de trabajo</b></label>
+							<select class="form-select">
+								<option disabled>Seleccione el area del empleado</option>
+								<option>Recursos humanos</option>
+								<option>Ventas</option>
+								<option>Administración</option>
+								<option>Departamento de contabilidad</option>
+								<option>Soporte tecnico</option>
+								<option>Almacen</option>
+							</select>
+						</div>
+					</div>
+				</div>
+	</div>
 	</div>
 }
 
