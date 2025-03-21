@@ -16,12 +16,10 @@ public class Empleado
     public virtual Persona DatosPersonales { get; set; } = null!;
     public static Empleado Create(
         string nombre,
-        DateTime? fechaNacimiento,
-        decimal sueldo)
+        decimal sueldo,
+		string area)
     => new()
     {
         Sueldo = sueldo,
-        DatosPersonales =
-        Persona.Create(nombre, fechaNacimiento)
     };
 }
