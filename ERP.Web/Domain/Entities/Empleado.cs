@@ -6,20 +6,25 @@ namespace ERP.Web.Domain.Entities;
 [Table("Empleados")]
 public class Empleado
 {
-    [Key]
-    public int Id { get; set; }
-    public int PersonaId { get; set; }
-    [Column(TypeName = "decimal(18, 2)")]
-    public decimal Sueldo { get; set; }
-    public string Area { get; set; } = string.Empty;
-    [ForeignKey(nameof(PersonaId))]
-    public virtual Persona DatosPersonales { get; set; } = null!;
-    public static Empleado Create(
-        string nombre,
-        decimal sueldo,
-		string area)
-    => new()
-    {
-        Sueldo = sueldo,
-    };
+	[Key]
+	public int Id { get; set; }
+	public int PersonaId { get; set; }
+	[Column(TypeName = "decimal(18, 2)")]
+	public decimal Sueldo { get; set; }
+	public string Area { get; set; } = null!;
+
+	[ForeignKey(nameof(PersonaId))]
+	public virtual Persona DatosPersonales { get; set; } = null!;
+	public static Empleado Create(
+		string nombre,
+		DateTime? fechaNacimiento,
+		string area,
+		decimal sueldo)
+	=> new()
+	{
+		Sueldo = sueldo,
+		Area = area,
+		DatosPersonales =
+		Persona.Create(nombre, fechaNacimiento)
+	};
 }

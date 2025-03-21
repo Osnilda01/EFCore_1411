@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ERP.Web.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250304234024_PrimeraMigracion")]
-    partial class PrimeraMigracion
+    [Migration("20250321073706_MigracionDefinitiva")]
+    partial class MigracionDefinitiva
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,6 +53,10 @@ namespace ERP.Web.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Area")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");

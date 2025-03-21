@@ -1,5 +1,8 @@
 ﻿@page "/empleados"
 @rendermode InteractiveServer
+@inject IEmpleadoService EmpleadoService 
+
+
 @if(show == false){
 	<div style="text-align:center">
 
@@ -12,84 +15,158 @@
 	</div>
 }
 
-@if(show == true){
+@if (ShowEmpleadosTable){
 	<h3 class="text-center"><b>Empleados</b></h3>
 	<br />
 	<div class="text-center"><img src="Img/lapizeditar2.png" width="50" height="50" /></div>
-	<p class="fs-5">Agregar empleado
-		<span class="btn btn-outline-primary m-lg-2 mt-2"><b>+</b></span>
+	<p class="fs-5">
+		Agregar empleado
+		<span class="btn btn-outline-primary m-lg-2 mt-2" @onclick="Showempleadosform"><b>+</b></span>
 	</p>
-	
+
 	<h3 class="fs-5 mt-5">Lista de empleados</h3>
 	<div class="card">
-		
-			<table class="table table-hover">
-				<thead class="text-center table-dark">
-					<tr>
-						<th>ID</th>
-						<th>Nombre</th>
-						<th>Sueldo</th>
-						<th>Area de trabajo</th>
-						<th>...</th>
-					</tr>
-				</thead>
-				<tbody class="text-center">
-					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th>
-							<div class="btn-group">
-								<span class="btn btn-outline-primary rounded-3 mx-4"><img src="Img/lapizeditar.png" width="20" height="20" /></span>
-							<span class="btn btn-outline-danger rounded-3 p-2" style="width:41px"><b>X</b></span>
-							</div>
-						</th>
-					</tr>
-				</tbody>
-			</table>
+
+		<table class="table table-hover">
+			<thead class="text-center table-dark">
+				<tr>
+					<th>ID</th>
+					<th>Nombre</th>
+					<th>Sueldo</th>
+					<th>Area de trabajo</th>
+					<th>...</th>
+				</tr>
+			</thead>
+			<tbody class="text-center">
+				@foreach (var item in ListadoEmpleados){
+				<tr>
+					<th>@item.Id</th>
+					<th>@item.DatosPersonales.Nombre</th>
+					<th>@item.Sueldo</th>
+					<th>@item.Area</th>
+					<th>
+						<div class="btn-group">
+								<span class="btn btn-outline-primary rounded-3 mx-4" @onclick="()=>Modificar(item.Id)"><img src="Img/lapizeditar.png" width="20" height="20" /></span>
+								<span class="btn btn-outline-danger rounded-3 p-2" @onclick="()=>Eliminar(item.Id)" style="width:41px"><b>X</b></span>
+						</div>
+					</th>
+				</tr>
+				}
+			</tbody>
+		</table>
+		<br>
 	</div>
+	}
 
 
-	<div class="card w-100 ">
-		<div class="card-header bg-dark text-white text-center"><b>Nuevo empleado</b></div>
+@if(ShowEmpleadosForm){
+	<div class="card w-50 mx-auto">
+		<div class="card-header bg-dark text-white text-center text-white"><b>@Titulo</b></div>
 			<div class="card-body">
-				<div class="mt-1 form-group">
+				<div class="mt-1 form-group mb-4">
 				<label class="form-label"><b>Nombre</b></label>
-				<input class="form-control" type="text" />
+				<input class="form-control" type="text" @bind="Request.DatosPersonales.Nombre" />
 				</div>
-				<br>
 				<div class="row">
 					<div class="col">
-						<div class="mt-1 form-group">
+					<div class="mt-1 form-group mb-4">
 							<label class="form-label"><b>Sueldo</b></label>
-							<input class="form-control" type="number" />
+						<input class="form-control" type="number" @bind="Request.Sueldo" />
 						</div>
 					</div>
+			</div>
 					<div class="col">
-						<div class="mt-1 form-group">
+				<div class="mt-1 form-group mb-4">
 							<label class="form-label"><b>Area de trabajo</b></label>
-							<select class="form-select">
+							<select class="form-select" @bind="Request.Area">
 								<option disabled>Seleccione el area del empleado</option>
-								<option>Recursos humanos</option>
-								<option>Ventas</option>
-								<option>Administración</option>
-								<option>Departamento de contabilidad</option>
-								<option>Soporte tecnico</option>
-								<option>Almacen</option>
+						<option value="Recursos humanos">Recursos humanos</option>
+								<option value="Ventas">Ventas</option>
+								<option value="Administración">Administración</option>
+						<option value="Departamento de contabilidad">Departamento de contabilidad</option>
+								<option value="Soporte tecnico">Soporte tecnico</option>
+								<option value="Almacen">Almacen</option>
 							</select>
 						</div>
 					</div>
-				</div>
+					<br>
+				<div class="text-center">
+			<span class="btn btn-primary rounded-3 p-2" style="margin-right: 35px" @onclick="Add"><b>Aceptar</b></span>
+			<span class="btn btn-outline-secondary rounded-3 p-2" @onclick="Clear"><b>Cancelar</b></span>
+			</div>
+		</div>
 	</div>
-	</div>
-}
+	}
+
+
 
 @code {
+	public string Titulo { get; set; } = "";
+	public List<EmpleadoDto> ListadoEmpleados { get; set; } = [];
+	public EmpleadoDto Request { get; set; } = new();
+	public bool ShowEmpleadosForm { get; set; } = false;
+	public bool ShowEmpleadosTable { get; set; } = false;
 	public bool show { get; set; } = false;
 	// Cuando show es verdadero se ocultara el div inicial y mostrara el area que te deja editar.
 	public void showitem(){
 		show = true;
+		ShowEmpleadosTable = true;
+	}
+
+	public void Showempleadosform()
+	{	
+		ShowEmpleadosForm = !ShowEmpleadosForm;
+		ShowEmpleadosTable = !ShowEmpleadosTable;
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		await Consultar();
+	}
+	private async Task Consultar()
+	{
+		ListadoEmpleados = await EmpleadoService.Consultar("");
+
+	}
+
+	private void Clear()
+	{
+		Request = new();
+		Showempleadosform();
 	}
 	
+	private void Agregar()
+	{
+		Clear();
+		Titulo = "Registrar";
+	}
+	private async Task Add()
+	{
+		var result = Request.Id == 0?
+			await EmpleadoService.Crear(Request) :
+			await EmpleadoService.Modificar(Request);
+		if (result)
+		{
+			await Consultar();
+			Clear();
+		}
+	}
+	private void Modificar(int Id)
+	{
+		Clear();
+		Titulo = "Modificar";
+		Request = ListadoEmpleados
+		.Where(em => em.Id == Id)
+		.FirstOrDefault() ?? new();
+	}
+	
+	private async Task Eliminar(int Id)
+	{
+		var result = await EmpleadoService.Eliminar(Id);
+		if (result)
+		{
+			await Consultar();
+		}
+	}
+
 }

@@ -19,9 +19,10 @@ namespace ERP.Web.Domain.Dto
     public class EmpleadoDto
     {
         public int Id { get; set; }//No requerir (Generado por la DB)
-        public int PersonaId { get; set; }//No requerir (Generado por la DB)
         public decimal Sueldo { get; set; }//Si
-        public string Area { get; set; } = null!;//Si y es la area de trabajo a la que pertenece el empleado(un extra).
+
+		public int PersonaId { get; set; }//No requerir (Generado por la DB)
+		public string Area { get; set; } = null!;//Si y es la area de trabajo a la que pertenece el empleado(un extra).
         public PersonaDto DatosPersonales { get; set; } = new PersonaDto();
     }
 }
